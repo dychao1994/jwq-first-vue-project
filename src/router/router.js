@@ -17,16 +17,28 @@ const router = new Router({
 	 */
     routes: [
         {
-            path: '/',
+            path: '/login',
             name: 'Login',
             component: Login // 需要跳转的组件
         },
         {
-            path: '/home',
+            path: '/',
             name: 'Home',
             component: Home // 需要跳转的组件
         }
     ]
+});
+router.beforeEach((to, from, next) => {
+    const isLogin = window.localStorage.getItem('isLogin');// 路由守卫
+    if (isLogin == 'true') {
+        next();
+    } else {
+        if (to.path == '/login') {
+            next();
+        } else {
+            next('/login');
+        }
+    }
 });
 // 5.导出路由
 export default router;
