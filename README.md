@@ -1,4 +1,4 @@
-# my-project
+# jwq-first-vue-project
 
 ## Project setup
 ```
