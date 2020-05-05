@@ -3,17 +3,18 @@ import Router from 'vue-router';
 
 import Login from '@/views/login/Login.vue';
 import Home from '@/views/home/Home.vue';
+import Table from '@/views/table/Table.vue';
+import Layout from '@/views/layout/Layout.vue';
 
-// 2.通过Vue的use方法注入Router
+// 通过Vue的use方法注入Router
 Vue.use(Router);
 
 const router = new Router({
-    // 指定路由选中时的样式类名
-    linkActiveClass: 'active',
+    linkActiveClass: 'active', // 指定路由选中时的样式类名
     hashbang: true, // 将路径格式化为#!开头
     history: true, // 启用HTML5 history模式，可以使用pushState和replaceState来管理记录
     /**
-	 * 4.@desc 路由配置配置具体的路径
+	 * @desc 路由配置配置具体的路径
 	 */
     routes: [
         {
@@ -23,8 +24,22 @@ const router = new Router({
         },
         {
             path: '/',
-            name: 'Home',
-            component: Home // 需要跳转的组件
+            name: 'Layout',
+            component: Layout,
+            redirect: '/first',
+            children: [{
+                path: '/first',
+                name: 'FirstPage',
+                component: Table // 需要跳转的组件
+            }, {
+                path: '/login2',
+                name: 'Login2',
+                component: Home // 需要跳转的组件
+            }, {
+                path: '/table',
+                name: 'table',
+                component: Table // 需要跳转的组件
+            }]
         }
     ]
 });

@@ -36,12 +36,16 @@ export default {
         login() {
             this.$refs.form.validate((valid) => {
                 if (valid) {
-                    // this.$router.push({path:'/home'},params: { userId:1}) //l路径跳转
-                    // 2.命名路由传递参数可以使用params或query来传递
+                    /**
+                     * l路径跳转
+                     * this.$router.push({path: '/home', params: {userId: 1}});
+                     * 2.命名路由传递参数可以使用params或query来传递
+                     * this.$router.push({name: 'Home', query: {userId: 1}});
+                     */
                     localStorage.setItem('userInfo', JSON.stringify(this.form));// 存字符串
                     localStorage.setItem('isLogin', true);
                     this.$store.dispatch('setUserInfo', this.form);
-                    this.$router.push({name: 'Home', query: {userId: 1}});
+                    this.$router.push({path: '/first', params: {userId: 1}});
                 } else {
                     this.$message.error('请根据页面提示填写内容！');
                     return false;

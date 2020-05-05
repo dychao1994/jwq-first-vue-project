@@ -6,7 +6,8 @@ import VueRouter from 'vue-router';
 import router from './router/router';
 // 仓库
 import store from './store';
-
+// 公用样式
+import './assets/css/reset.css';
 // 通过Vue的use方法注入VueRouter
 Vue.use(VueRouter);
 
