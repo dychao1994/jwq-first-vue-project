@@ -1,0 +1,198 @@
+/*
+Write your variables here. All available variables can be
+found in element-ui/packages/theme-chalk/src/common/var.scss.
+For example, to overwrite the theme color:
+*/
+@import "./common.scss";
+$--color-primary: $primary;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+/* Table
+-------------------------- */
+.el-table--small{
+  font-size: 14px;
+}
+//将fixed下面的线去掉
+.el-table__fixed-right::before, .el-table__fixed::before{
+  background: transparent;
+}
+
+/* Button
+-------------------------- */
+.el-button{
+  font-weight: 400;
+  border-radius: 4px;
+}
+.el-button--small{
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 3px;
+}
+.el-button--mini{
+  padding: 7px 16px;
+  border-radius: 3px;
+}
+.el-button--text{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/*Tabs
+-------------------------- */
+.el-tabs {
+  height: 100%;
+  .el-tabs__nav-wrap::after{ //线的高度
+    height: 1px;
+  }
+  .el-tabs__header {
+    margin: 0 0 16px;
+  }
+}
+.el-tabs--bottom,.el-tabs--top{
+  display: flex;
+  flex-direction: column;
+  .el-tabs__content{
+    flex: 1;
+    height: 0;
+    .el-tab-pane{
+      height: 100%;
+    }
+  }
+  .el-tabs__nav-scroll{
+    padding-left: 20px;
+  }
+}
+
+.el-tabs--right,.el-tabs--left{
+  .el-tabs__content{
+    height: 100%;
+  }
+}
+
+//  选项卡样式tabs标题行高36px
+.el-tabs--card{
+  .el-tabs__nav-wrap {
+    height: 36px;
+    div {
+      height: 100%;
+    }
+  }
+}
+//  卡片化样式tabs标题行高36px
+.el-tabs--border-card{
+  .el-tabs__nav-wrap {
+    height: 36px;
+    div {
+      height: 100%;
+    }
+  }
+}
+/* Input
+-------------------------- */
+
+.el-input--small{
+  .el-input__inner{
+    border-radius: 3px;
+  }
+}
+.el-input--mini .el-input__inner{
+  border-radius: 2px;
+}
+
+/* Form
+-------------------------- */
+.form-mini{
+  .el-form-item{
+    margin-bottom: 12px;
+  }
+}
+
+/* Dialog
+-------------------------- */
+.el-dialog{
+  border-radius: 4px;
+}
+.el-dialog__header{
+  border-bottom: 1px solid $border-lighter;
+  height: 46px;
+  line-height: 46px;
+  padding: 0px 30px;
+  font-weight: bold;
+
+  .el-dialog__title{
+    font-size: 16px;
+  }
+  .el-dialog__headerbtn{
+    top: 14px;
+    right: 30px;
+    .el-dialog__close{
+      font-size: 18px;
+    }
+  }
+}
+.el-dialog__body{
+  padding: 20px 30px;
+}
+.el-dialog__footer{
+  border-top: 1px solid $border-lighter;
+  padding: 0 30px;
+  height: 54px;
+  line-height: 54px;
+}
+
+/* Pagination
+-------------------------- */
+
+.el-pagination{
+  text-align: right;
+}
+
+/* Radio
+-------------------------- */
+.el-radio--small.is-bordered{
+  padding: 8px 12px 0;
+}
+
+/* Checkbox
+-------------------------- */
+.el-checkbox.is-bordered.el-checkbox--small{
+  padding: 5px 12px;
+}
+
+/* Message
+-------------------------- */
+.el-message-box{
+  padding-bottom: 16px;
+}
+.el-message-box__header{
+  padding: 16px 14px 10px 24px;
+}
+.el-message-box__content{
+  padding: 10px 24px;
+}
+.el-message-box__title{
+  font-size: 16px;
+}
+.el-message-box__status{
+  font-size: 20px !important;
+}
+
+/* Drawer
+-------------------------- */
+.el-drawer__header{
+  border-bottom: 1px solid $border-light;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  color: $text-primary;
+}
+
+/* Tooltip
+-------------------------- */
+.el-tooltip__popper{
+  max-width: 500px;
+}

@@ -1,0 +1,140 @@
+/*
+颜色变量，已定义全局引入
+*/
+$primary:#32C0BC;               //主题色
+$hover:#B3D8FF;                 //hover颜色
+$primary-light:#ECF5FF;         //比主题色更浅一点的颜色
+$primary-dark:#2750A7;         //比主题色更深一点的颜色
+$body-bg: #f0f2f4;              //主体背景色
+
+$success: #67C23A;              //成功颜色
+$warning: #F5A42B;              //警告颜色
+$danger: #F56C6C;               //危险颜色
+$info: #909399;                 //中性颜色
+
+$text-primary: #333333;         //主要文字颜色
+$text-regular: #666666;         //常规文字颜色
+$text-secondary: #999999;       //次要文字颜色
+$text-placeholder: #C0C4CC;     //占位文字颜色
+
+$border-base: #DCDFE6;          //一级边框颜色
+$border-light: #E4E7ED;         //二级边框颜色
+$border-lighter: #EBEEF5;       //三级边框颜色
+$border-extra-light: #F2F6FC;   //四级边框颜色
+
+$purple: #9254DE;
+$yellow: #FFA940;
+$pink: #F759AB;
+$green:#73D13D;
+$green1:#36CFC9;
+
+// 项目内部自定义
+$background-disease: #EBF9F9; //疾病库背景
+$header-bg: #F2FCFC;            //标题背景色
+$bg-secondary: #f8f8f8;
+$gray-bg: #FAFAFA;
+$simple-bg: #EFF2F8;
+$dark-bg: #022348;
+
+.el-input--mini{
+  .el-input__inner{
+    font-size: 14px !important;
+  }
+}
+.el-textarea__inner{
+  font-size: 14px !important;
+  line-height: 1.5;
+}
+.level-5{
+  color: #22075E;
+}
+.level-4{
+  color: #F5222D;
+}
+.level-3{
+  color: #FFA940;
+}
+.level-2{
+  color: #FADB14;
+}
+.level-1{
+  color: #73D13D;
+}
+
+@mixin mouse-over{
+  cursor: pointer;
+  &:hover{
+    color: $primary;
+    i{
+      color: $primary;
+    }
+  }
+}
+@mixin mouse-over1{
+  cursor: pointer;
+  &:hover{
+    color: $hover;
+    i{
+      color: $hover;
+    }
+  }
+}
+
+@mixin center($height){
+  height: $height;
+  line-height: $height;
+  text-align: center;
+}
+.diy-required{
+  >label{
+    &:before {
+      content: '*';
+      color: #F56C6C;
+      margin-right: 4px;
+    }
+  }
+}
+.el-dialog__body{
+  padding: 20px 28px;
+  height: calc(100% - 100px);
+  overflow-y: auto;
+}
+.el-tabs {
+  height: 100%;
+  .el-tabs__nav{
+    padding-left: 20px;
+    .el-tabs__active-bar{
+      left: 20px;
+    }
+    .el-tabs__item{
+      font-size: 16px;
+      height: 48px;
+      line-height: 48px;
+    }
+  }
+  .el-tabs__content{
+    height: calc(100% - 50px);
+    .el-tab-pane{
+      height: calc(100% - 20px);
+      overflow: auto;
+    }
+  }
+  &.el-tabs--left {
+    .el-tabs__content {
+      height: 100%;
+    }
+
+    .el-tabs__item{
+      font-size: 14px;
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+  .el-tabs__nav-wrap::after{ //线的高度
+    height: 1px;
+  }
+  .el-tabs__header {
+    margin: 0 0 16px;
+  }
+}
+

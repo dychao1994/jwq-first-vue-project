@@ -45,7 +45,7 @@ export default {
                     localStorage.setItem('userInfo', JSON.stringify(this.form));// 存字符串
                     localStorage.setItem('isLogin', true);
                     this.$store.dispatch('setUserInfo', this.form);
-                    this.$router.push({path: '/first', params: {userId: 1}});
+                    this.$router.push({path: '/', params: {userId: 1}});
                 } else {
                     this.$message.error('请根据页面提示填写内容！');
                     return false;

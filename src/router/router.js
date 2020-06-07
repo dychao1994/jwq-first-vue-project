@@ -2,9 +2,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import Login from '@/views/login/Login.vue';
-import Home from '@/views/home/Home.vue';
-import Table from '@/views/table/Table.vue';
 import Layout from '@/views/layout/Layout.vue';
+import Table from '@/views/table/Table.vue';
+import RichText from '@/views/richText/RichText.vue';
+
 
 // 通过Vue的use方法注入Router
 Vue.use(Router);
@@ -26,19 +27,15 @@ const router = new Router({
             path: '/',
             name: 'Layout',
             component: Layout,
-            redirect: '/first',
+            redirect: '/table',
             children: [{
-                path: '/first',
-                name: 'FirstPage',
-                component: Table // 需要跳转的组件
-            }, {
-                path: '/login2',
-                name: 'Login2',
-                component: Home // 需要跳转的组件
-            }, {
                 path: '/table',
                 name: 'table',
                 component: Table // 需要跳转的组件
+            }, {
+                path: '/richText',
+                name: 'richText',
+                component: RichText // 需要跳转的组件
             }]
         }
     ]

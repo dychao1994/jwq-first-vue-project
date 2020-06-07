@@ -5,27 +5,36 @@
         <el-button type="primary" @click="logout">退出</el-button>
   </div>-->
     <el-container class="layout">
-        <el-aside width="185px">
-            <el-menu router class="left-menu" @select="handleSelect" @open="handleOpen"  @close="handleClose">
-                <el-submenu index="1">
-                    <template slot="title">
-                        <i class="el-icon-location"></i>
-                        <span>导航一</span>
-                    </template>
-                    <el-menu-item-group>
-                        <template slot="title">分组一</template>
-                        <el-menu-item index="/first">选项1</el-menu-item>
-                        <el-menu-item index="/login2">选项2</el-menu-item>
-                    </el-menu-item-group>
-                </el-submenu>
-                <el-menu-item index="2">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">导航二</span>
+        <el-aside width="160px">
+            <div class="logo-header">
+                <img src="@/assets/img/logo.png" alt="">
+                <span>学习中心</span>
+            </div>
+            <el-menu
+                :text-color="modeConfig[mode].textColor"
+                :active-text-color="modeConfig[mode].activeTextColor"
+                :background-color="modeConfig[mode].backgroundColor"
+                :default-active="activeIndex"
+                router
+                class="left-menu"
+                :class="mode + '-menu'"
+                @select="handleSelect"
+                @open="handleOpen"
+                @close="handleClose">
+                <el-menu-item index="/table">
+                    <i class="iconfont icon-learning-table" />
+                    表格
+                </el-menu-item>
+                <el-menu-item index="/richText">
+                    <i class="iconfont icon-learning-rich-text" />
+                    富文本
                 </el-menu-item>
             </el-menu>
         </el-aside>
         <el-container>
-            <el-header>Header</el-header>
+            <el-header class="header">
+                <el-button type="default" size="mini" icon="iconfont icon-learning-quit" circle @click="logout"></el-button>
+            </el-header>
             <el-main>
                 <router-view></router-view>
             </el-main>
@@ -35,7 +44,40 @@
 
 <script>
 export default {
-    name: 'Home',
+    name: 'Layout',
+    props: {
+        mode: {
+            type: String,
+            default: 'dark'
+        }
+    },
+    data() {
+        return {
+            modeConfig: {
+                dark: {
+                    textColor: '#FFFFFF',
+                    activeTextColor: '#FFFFFF',
+                    iconColor: '#FFFFFF',
+                    backgroundColor: '#022348'
+                },
+                light: {
+                    textColor: '#333333',
+                    iconColor: '#666666',
+                    backgroundColor: '#FFFFFF'
+                },
+                simple: {
+                    textColor: '#333333',
+                    iconColor: '#666666',
+                    backgroundColor: '#EFF2F8'
+                }
+            }
+        };
+    },
+    computed: {
+        activeIndex() {
+            return this.$route.meta.activeIndex || this.$route.path;
+        }
+    },
     methods: {
         logout() {
             const userInfo = {
@@ -62,12 +104,210 @@ export default {
     }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     .layout{
         min-height: 100vh;
+        .logo-header{
+            height: 54px;
+            background-color: $dark-bg;
+            color: #ffffff;
+            line-height: 54px;
+            font-size: 18px;
+            padding-left: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            transition: width .3s ease-in-out;
+            white-space: nowrap;
+            img{
+                width: 26px;
+            }
+            span{
+                padding-left: 10px;
+                font-weight: 500;
+                color: white;
+            }
+        }
         .left-menu{
-            width: 180px;
-            min-height: 100vh;
+            width: 160px;
+            height: calc(100% - 54px);
+            border-right: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            /deep/.el-submenu__title:hover{
+                background:  transparent  !important;
+            }
+
+            .el-menu-item{
+                &:hover{
+                    background:transparent !important;
+                }
+            }
+            .el-menu-item, /deep/.el-submenu__title{
+                height: 40px;
+                line-height: 40px;
+            }
+            .el-submenu .el-menu-item{
+                min-width: 160px;
+            }
+            .el-submenu.is-active.is-opened{
+                background: transparent !important;
+                .el-submenu__title{
+                    background:transparent !important;
+                }
+            }
+            .iconfont{
+                vertical-align: middle;
+                margin-right: 6px;
+                width: 24px;
+                text-align: center;
+                font-size: 16px !important;
+            }
+        }
+        .dark-menu {
+            .el-menu-item.is-active{
+                background: $primary !important;
+            }
+            .el-submenu.is-active{
+                background: $primary !important;
+                .el-submenu__title{
+                    background: $primary !important;
+                }
+            }
+            i{
+                color: #FFFFFF;
+            }
+        }
+
+        .light-menu {
+            i{
+                color: $text-regular;
+            }
+            .el-menu-item.is-active{
+                background: $primary-light !important;
+                border-right: 3px solid $primary;
+                color: $primary;
+                i{
+                    color: $primary;
+                }
+            }
+            .el-submenu.is-active.is-opened{
+                border-right: none;
+            }
+            .el-submenu.is-active{
+                background: $primary-light !important;
+                border-right: 3px solid $primary;
+                .el-submenu__title{
+                    background: $primary-light !important;
+                }
+            }
+
+        }
+
+        .simple-menu{
+            .el-menu-item{
+                border-left: 2px solid $simple-bg;
+            }
+            .el-menu-item.is-active{
+                background: white !important;
+                border-left: 2px solid $primary;
+                color: $primary;
+                i{
+                    color: $primary;
+                }
+            }
+            .el-submenu.is-active.is-opened{
+                border-left: none;
+
+                .el-submenu__title{
+                    color:inherit !important;
+                    border-left: 2px solid $simple-bg;
+                }
+                i{
+                    color:inherit !important;
+                }
+            }
+            .el-submenu.is-active{
+                background: white !important;
+
+                i{
+                    color: $primary !important;
+                }
+                .el-submenu__title{
+                    background: white !important;
+                    color: $primary !important;
+                    border-left: 2px solid $primary;
+                }
+            }
+        }
+        //收缩的时候pop出来的二级样式
+
+        .dark-menu-pop{
+            .el-menu{
+                min-width: 160px;
+            }
+            .el-menu-item, .el-submenu__title{
+                height: 40px;
+                line-height: 40px;
+                &:hover{
+                    background:transparent !important;
+                }
+            }
+            .el-menu-item.is-active{
+                background: $primary !important;
+            }
+        }
+        .simple-menu-pop, .light-menu-pop{
+            .el-menu{
+                min-width: 160px;
+            }
+            .el-menu-item, .el-submenu__title{
+                height: 40px;
+                line-height: 40px;
+                &:hover{
+                    background:transparent !important;
+                }
+            }
+            .el-menu-item.is-active{
+                background:  $primary-light !important;
+            }
+        }
+        .dark-menu-pop{
+            .el-menu{
+                min-width: 160px;
+            }
+            .el-menu-item, .el-submenu__title{
+                height: 40px;
+                line-height: 40px;
+                &:hover{
+                    background:transparent !important;
+                }
+            }
+            .el-menu-item.is-active{
+                background: $primary !important;
+            }
+        }
+        .header{
+            width: 100%;
+            height: 54px !important;
+            line-height: 54px;
+            background: white;
+            box-shadow: 0 1px 4px 0 rgba(0,21,41,0.08);
+            z-index: 3;
+            padding-right: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .header-dropdowm{
+                height: 40px;
+            }
+            .simple-dropdowm, .light-dropdowm{
+                color: white;
+            }
+        }
+        .simple-header,.light-header{
+            background: $primary;
+            box-shadow: 0 1px 4px 0 rgba(0,21,41,0.12);
         }
     }
 </style>

@@ -1,0 +1,37 @@
+{
+  "id": "1867454",
+  "name": "学习中心",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-learning-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "14421790",
+      "name": "退出",
+      "font_class": "quit",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "1190641",
+      "name": "富文本",
+      "font_class": "rich-text",
+      "unicode": "e7e4",
+      "unicode_decimal": 59364
+    },
+    {
+      "icon_id": "8361755",
+      "name": "表格1",
+      "font_class": "table",
+      "unicode": "e6ba",
+      "unicode_decimal": 59066
+    },
+    {
+      "icon_id": "7037111",
+      "name": "学习中心",
+      "font_class": "style",
+      "unicode": "e710",
+      "unicode_decimal": 59152
+    }
+  ]
+}

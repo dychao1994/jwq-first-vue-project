@@ -4,7 +4,7 @@
             ref="singleTable"
             :data="showTableData"
             style="width: 100%"
-            @current-change="handleCurrentChange">
+        >
             <el-table-column
                 type="index"
                 label="序号"
@@ -89,7 +89,6 @@ export default {
                 sex: '女',
                 age: 24
             }],
-            currentRow: null,
             sexFilters: [{
                 text: '男', value: '男'
             }, {
