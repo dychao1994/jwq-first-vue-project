@@ -10,9 +10,12 @@ import store from './store';
 import './assets/css/reset.css';
 //  引入阿里巴巴icon
 import './assets/iconfont/iconfont.css';
+import BaiduMap from 'vue-baidu-map';
+Vue.use(BaiduMap, {
+    ak: '2A7BGZmjtA06gpf7QOZDUMdx5T2XUrDn'
+});
 // 通过Vue的use方法注入VueRouter
 Vue.use(VueRouter);
-
 Vue.config.productionTip = false;
 
 new Vue({

@@ -5,6 +5,8 @@ import Login from '@/views/login/Login.vue';
 import Layout from '@/views/layout/Layout.vue';
 import Table from '@/views/table/Table.vue';
 import RichText from '@/views/richText/RichText.vue';
+import BaiduMap from '@/views/baiduMap/BaiduMap.vue';
+import AceEditor from '@/views/aceEditor/AceEditor.vue';
 
 
 // 通过Vue的use方法注入Router
@@ -27,7 +29,7 @@ const router = new Router({
             path: '/',
             name: 'Layout',
             component: Layout,
-            redirect: '/table',
+            redirect: '/aceEditor',
             children: [{
                 path: '/table',
                 name: 'table',
@@ -36,13 +38,21 @@ const router = new Router({
                 path: '/richText',
                 name: 'richText',
                 component: RichText // 需要跳转的组件
+            }, {
+                path: '/baiduMap',
+                name: 'baiduMap',
+                component: BaiduMap // 需要跳转的组件
+            }, {
+                path: '/aceEditor',
+                name: 'aceEditor',
+                component: AceEditor // 需要跳转的组件
             }]
         }
     ]
 });
 router.beforeEach((to, from, next) => {
     const isLogin = window.localStorage.getItem('isLogin');// 路由守卫
-    if (isLogin == 'true') {
+    if (isLogin && isLogin == 'true') {
         next();
     } else {
         if (to.path == '/login') {

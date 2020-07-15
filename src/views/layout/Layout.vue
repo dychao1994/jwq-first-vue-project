@@ -20,14 +20,22 @@
                 :class="mode + '-menu'"
                 @select="handleSelect"
                 @open="handleOpen"
-                @close="handleClose">
+                @close="handleClose"><!--
                 <el-menu-item index="/table">
                     <i class="iconfont icon-learning-table" />
                     表格
-                </el-menu-item>
+                </el-menu-item>-->
                 <el-menu-item index="/richText">
                     <i class="iconfont icon-learning-rich-text" />
                     富文本
+                </el-menu-item>
+                <el-menu-item index="/baiduMap">
+                    <i class="iconfont icon-learning-map" />
+                    百度地图
+                </el-menu-item>
+                <el-menu-item index="/aceEditor">
+                    <i class="iconfont icon-learning-editor" />
+                    aceEditor
                 </el-menu-item>
             </el-menu>
         </el-aside>
@@ -88,7 +96,8 @@ export default {
             localStorage.setItem('isLogin', false);
             this.$store.dispatch('setUserInfo', userInfo);
             this.$store.dispatch('setIsLogin', false);
-            this.$router.push('/login');
+            this.$router.replace('/login');
+            location.reload();
         },
         handleOpen(key, keyPath) { // 展开菜单
             console.log('key1:', key);

@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5678797",
+      "name": "文本格式化",
+      "font_class": "format",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "7098257",
+      "name": "地图",
+      "font_class": "map",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "11940429",
+      "name": "editor",
+      "font_class": "editor",
+      "unicode": "e6df",
+      "unicode_decimal": 59103
+    },
+    {
       "icon_id": "14421790",
       "name": "退出",
       "font_class": "quit",
