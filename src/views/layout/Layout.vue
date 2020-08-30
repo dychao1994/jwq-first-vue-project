@@ -21,6 +21,10 @@
                 @select="handleSelect"
                 @open="handleOpen"
                 @close="handleClose">
+                <el-menu-item index="/jobExample">
+                    <i class="iconfont icon-learning-table" />
+                    工作例子
+                </el-menu-item>
                 <el-menu-item index="/table">
                     <i class="iconfont icon-learning-table" />
                     表格

@@ -9,6 +9,7 @@ import BaiduMap from '@/views/baiduMap/BaiduMap.vue';
 import AceEditor from '@/views/aceEditor/AceEditor.vue';
 import LiuYao from '@/views/liuYao/LiuYao.vue';
 import AdvancedSearch from '@/views/advancedSearch/AdvancedSearch.vue';
+import JobExample from '@/views/jobExample/JobExample.vue';
 
 
 // 通过Vue的use方法注入Router
@@ -33,6 +34,10 @@ const router = new Router({
             component: Layout,
             redirect: '/aceEditor',
             children: [{
+                path: '/jobExample',
+                name: 'jobExample',
+                component: JobExample // 需要跳转的组件
+            }, {
                 path: '/table',
                 name: 'table',
                 component: Table // 需要跳转的组件
