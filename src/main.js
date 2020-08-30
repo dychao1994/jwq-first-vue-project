@@ -17,7 +17,7 @@ Vue.use(BaiduMap, {
 // 通过Vue的use方法注入VueRouter
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
-
+window.$vue = Vue.prototype;
 new Vue({
     render: h => h(App),
     router,

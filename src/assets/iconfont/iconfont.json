@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7087551",
+      "name": "五行",
+      "font_class": "wuxing",
+      "unicode": "e6c2",
+      "unicode_decimal": 59074
+    },
+    {
       "icon_id": "5678797",
       "name": "文本格式化",
       "font_class": "format",

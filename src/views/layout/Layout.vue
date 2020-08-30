@@ -20,11 +20,11 @@
                 :class="mode + '-menu'"
                 @select="handleSelect"
                 @open="handleOpen"
-                @close="handleClose"><!--
+                @close="handleClose">
                 <el-menu-item index="/table">
                     <i class="iconfont icon-learning-table" />
                     表格
-                </el-menu-item>-->
+                </el-menu-item>
                 <el-menu-item index="/richText">
                     <i class="iconfont icon-learning-rich-text" />
                     富文本
@@ -36,6 +36,14 @@
                 <el-menu-item index="/aceEditor">
                     <i class="iconfont icon-learning-editor" />
                     aceEditor
+                </el-menu-item>
+                <el-menu-item index="/liuYao">
+                    <i class="iconfont icon-learning-wuxing" />
+                    六爻
+                </el-menu-item>
+                <el-menu-item index="/advancedSearch">
+                    <i class="iconfont icon-learning-wuxing" />
+                    高级检索
                 </el-menu-item>
             </el-menu>
         </el-aside>

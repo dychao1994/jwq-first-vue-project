@@ -7,6 +7,8 @@ import Table from '@/views/table/Table.vue';
 import RichText from '@/views/richText/RichText.vue';
 import BaiduMap from '@/views/baiduMap/BaiduMap.vue';
 import AceEditor from '@/views/aceEditor/AceEditor.vue';
+import LiuYao from '@/views/liuYao/LiuYao.vue';
+import AdvancedSearch from '@/views/advancedSearch/AdvancedSearch.vue';
 
 
 // 通过Vue的use方法注入Router
@@ -46,6 +48,14 @@ const router = new Router({
                 path: '/aceEditor',
                 name: 'aceEditor',
                 component: AceEditor // 需要跳转的组件
+            }, {
+                path: '/liuYao',
+                name: 'liuYao',
+                component: LiuYao // 需要跳转的组件
+            }, {
+                path: '/advancedSearch',
+                name: 'advancedSearch',
+                component: AdvancedSearch
             }]
         }
     ]

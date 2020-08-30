@@ -50,6 +50,7 @@
 
 <script>
 import xml2js from 'xml2js';
+import {xmlToJson, jsonToXml} from '@/utils/utils.js';
 export default {
     name: 'AceEditor',
     components: {
@@ -58,7 +59,7 @@ export default {
     data() {
         return {
             tableData: [],
-            content: '{\n' +
+            content: /* '{\n' +
                 '    "$xmlns:soap": "http://www.w3.org/2003/05/soap-envelope",\n' +
                 '    "$xmlns:web": "http://webservice.zhending.com",\n' +
                 '    "soap:Header": "",\n' +
@@ -69,7 +70,7 @@ export default {
                 '            "web:json": "?"\n' +
                 '        }\n' +
                 '    }\n' +
-                '}', /* '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://webservice.zhending.com">\n' +                '   <soap:Header/>\n' +
+                '}', */ '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://webservice.zhending.com">\n' + '   <soap:Header/>\n' +
                 '   <soap:Body>\n' +
                 '      <web:getData a="123">\n' +
                 '         <!--Optional:-->\n' +
@@ -78,9 +79,9 @@ export default {
                 '         <web:json>?</web:json>\n' +
                 '      </web:getData>\n' +
                 '   </soap:Body>\n' +
-                '</soap:Envelope>'*/
-            lang: 'json', // json、xml
-            langOld: 'json',
+                '</soap:Envelope>',
+            lang: 'xml', // json、xml
+            langOld: 'xml',
             langOptions: [{
                 label: 'json',
                 value: 'json'
@@ -88,7 +89,7 @@ export default {
                 label: 'xml',
                 value: 'xml'
             }], // json、xml
-            theme: 'monokai',
+            theme: 'chrome',
             themeOptions: ['ambiance', 'chaos', 'chrome', 'clouds_midnight', 'clouds', 'cobalt', 'crimson_editor', 'dawn', 'dracula', 'dreamweaver', 'eclipse', 'github', 'gob', 'gruvbox', 'idle_fingers', 'iplastic', 'katzenmilch', 'kr_theme', 'kuroir', 'merbivore_soft', 'merbivore', 'mono_industrial', 'monokai', 'pastel_on_dark', 'solarized_dark', 'solarized_light', 'sqlserver', 'terminal', 'textmate', 'tomorrow_night_blue', 'tomorrow_night_bright', 'tomorrow_night_eighties', 'tomorrow_night', 'tomorrow', 'twilight', 'vibrant_ink', 'xcode']
         };
     },
@@ -123,24 +124,30 @@ export default {
         handleLangChange(val) {
             const {langOld} = this;
             if (val == 'json' && langOld == 'xml') {
-                this.xmlToJson(this.content).then(res => {
+                xmlToJson(this.content).then(res => {
                     this.content = res;
                     const json = JSON.parse(res);
                     this.tableData = this.formatTableData(json);
                 });
+                /* this.xmlToJson(this.content).then(res => {
+                    this.content = res;
+                    const json = JSON.parse(res);
+                    this.tableData = this.formatTableData(json);
+                });*/
             } else if (val == 'xml' && langOld == 'json') {
                 //  headless（默认值false：）：省略XML标头。在0.4.3。中添加。
                 //  attrkey（默认值$：）：用于访问属性的前缀。版本0.1默认为@。
-                const builder = new xml2js.Builder({headless: true, attrkey: '$', rootName: 'soap:Envelope'});
+                /* const builder = new xml2js.Builder({headless: true, attrkey: '$'});
                 let json; const xmlJson = {};
                 try {
                     json = JSON.parse(this.content);
                     this.transformXmlJson(xmlJson, json);
                 } catch (e) {
                     this.$message.error('json格式有误，转换xml失败！');
-                }
-                this.content = builder.buildObject(xmlJson);
-                this.tableData = this.formatTableData(json);
+                }*/
+                const content = this.content;
+                this.content = jsonToXml(this.content);
+                this.tableData = this.formatTableData(JSON.parse(content));
             }
         },
         xmlToJson(xml) {
@@ -164,7 +171,7 @@ export default {
                 // xml -> json
                 xmlParser.parseString(xml, (err, result) => {
                     // 将返回的结果再次格式化
-                    resolve(this.formateJson(JSON.stringify(result[Object.keys(result)[0]])));
+                    resolve(this.formateJson(JSON.stringify(result)));
                 });
             });
         },
@@ -201,62 +208,6 @@ export default {
                     this.transformXmlJson(result[key], value);
                 }
             });
-            return result;
-        },
-        // 格式化xml代码
-        formateXml(xmlStr) {
-            let text = xmlStr;
-            // 使用replace去空格
-            text = `\n${text.replace(/(<\w+)(\s.*?>)/g, ($0, name, props) => {
-                return `${name} ${props.replace(/\s+(\w+=)/g, ' $1')}`;
-            }).replace(/>\s*?</g, '>\n<')}`;
-            // 处理注释
-            text = text.replace(/\n/g, '\r').replace(/<!--(.+?)-->/g, ($0, text) => {
-                const ret = `<!--${escape(text)}-->`;
-                return ret;
-            }).replace(/\r/g, '\n');
-            // 调整格式  以压栈方式递归调整缩进
-            const rgx = /\n(<(([^?]).+?)(?:\s|\s*?>|\s*?(\/)>)(?:.*?(?:(?:(\/)>)|(?:<(\/)\2>)))?)/mg;
-            const nodeStack = [];
-            const output = text.replace(rgx, ($0, all, name, isBegin, isCloseFull1, isCloseFull2, isFull1, isFull2) => {
-                const isClosed = (isCloseFull1 == '/') || (isCloseFull2 == '/') || (isFull1 == '/') || (isFull2 == '/');
-                let prefix = '';
-                if (isBegin == '!') { //! 开头
-                    prefix = this.setPrefix(nodeStack.length);
-                } else {
-                    if (isBegin != '/') { // /开头
-                        prefix = this.setPrefix(nodeStack.length);
-                        if (!isClosed) { // 非关闭标签
-                            nodeStack.push(name);
-                        }
-                    } else {
-                        nodeStack.pop();// 弹栈
-                        prefix = this.setPrefix(nodeStack.length);
-                    }
-                }
-                const ret = `\n${prefix}${all}`;
-                return ret;
-            });
-            let outputText = output.substring(1);
-            // 还原注释内容
-            outputText = outputText.replace(/\n/g, '\r').replace(/(\s*)<!--(.+?)-->/g, ($0, prefix, text) => {
-                if (prefix.charAt(0) == '\r') { prefix = prefix.substring(1); }
-                text = unescape(text).replace(/\r/g, '\n');
-                const ret = `\n${prefix}<!--${text.replace(/^\s*/mg, prefix)}-->`;
-                return ret;
-            });
-            outputText = outputText.replace(/\s+$/g, '').replace(/\r/g, '\r\n');
-            return outputText;
-        },
-        setPrefix(prefixIndex) {
-            // 计算头函数 用来缩进
-            let result = '';
-            const span = '    ';// 缩进长度
-            const output = [];
-            for (let i = 0; i < prefixIndex; ++i) {
-                output.push(span);
-            }
-            result = output.join('');
             return result;
         }
     }
