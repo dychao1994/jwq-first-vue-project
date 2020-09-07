@@ -14,12 +14,14 @@
                         v-if="frequency != 5"
                         v-model="scope.row.month"
                         type="month"
+                        size="small"
                         placeholder="选择月">
                     </el-date-picker>
                     <el-date-picker
                         v-else
                         v-model="scope.row.month"
                         type="week"
+                        size="small"
                         format="yyyy第WW周"
                         placeholder="选择周"
                         @change="(val) => changeWeek(val, scope.row)"

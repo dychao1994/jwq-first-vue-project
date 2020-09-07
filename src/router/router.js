@@ -1,16 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Login from '@/views/login/Login.vue';
-import Layout from '@/views/layout/Layout.vue';
-import Table from '@/views/table/Table.vue';
-import RichText from '@/views/richText/RichText.vue';
-import BaiduMap from '@/views/baiduMap/BaiduMap.vue';
-import AceEditor from '@/views/aceEditor/AceEditor.vue';
-import LiuYao from '@/views/liuYao/LiuYao.vue';
-import AdvancedSearch from '@/views/advancedSearch/AdvancedSearch.vue';
-import JobExample from '@/views/jobExample/JobExample.vue';
+const Login = () => import('@/views/login/Login.vue');
+const Layout = () => import('@/views/layout/Layout.vue');
 
+const RichText = () => import('@/views/richText/RichText.vue');
+const BaiduMap = () => import('@/views/baiduMap/BaiduMap.vue');
+const AceEditor = () => import('@/views/aceEditor/AceEditor.vue');
+const LiuYao = () => import('@/views/liuYao/LiuYao.vue');
+const AdvancedSearch = () => import('@/views/advancedSearch/AdvancedSearch.vue');
+
+const AutoExample = () => import('@/views/jobExample/autoExample/AutoExample.vue');
+const Table = () => import('@/views/jobExample/table/Table.vue');
 
 // 通过Vue的use方法注入Router
 Vue.use(Router);
@@ -32,15 +33,15 @@ const router = new Router({
             path: '/',
             name: 'Layout',
             component: Layout,
-            redirect: '/aceEditor',
+            redirect: '/jobExample/autoExample',
             children: [{
-                path: '/jobExample',
-                name: 'jobExample',
-                component: JobExample // 需要跳转的组件
+                path: '/jobExample/autoExample',
+                name: 'autoExample',
+                component: AutoExample
             }, {
-                path: '/table',
+                path: '/jobExample/table',
                 name: 'table',
-                component: Table // 需要跳转的组件
+                component: Table
             }, {
                 path: '/richText',
                 name: 'richText',

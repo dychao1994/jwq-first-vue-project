@@ -21,41 +21,36 @@
                 @select="handleSelect"
                 @open="handleOpen"
                 @close="handleClose">
-                <el-menu-item index="/jobExample">
-                    <i class="iconfont icon-learning-table" />
-                    工作例子
-                </el-menu-item>
-                <el-menu-item index="/table">
-                    <i class="iconfont icon-learning-table" />
-                    表格
-                </el-menu-item>
-                <el-menu-item index="/richText">
-                    <i class="iconfont icon-learning-rich-text" />
-                    富文本
-                </el-menu-item>
-                <el-menu-item index="/baiduMap">
-                    <i class="iconfont icon-learning-map" />
-                    百度地图
-                </el-menu-item>
-                <el-menu-item index="/aceEditor">
-                    <i class="iconfont icon-learning-editor" />
-                    aceEditor
-                </el-menu-item>
-                <el-menu-item index="/liuYao">
-                    <i class="iconfont icon-learning-wuxing" />
-                    六爻
-                </el-menu-item>
-                <el-menu-item index="/advancedSearch">
-                    <i class="iconfont icon-learning-wuxing" />
-                    高级检索
-                </el-menu-item>
+                <template v-for="(item, index) of currentMenus">
+                    <el-submenu
+                        v-if="item.children && item.children.length"
+                        :key="index"
+                        :popper-class="mode + '-menu-pop'"
+                        :index="item.path">
+                        <template slot="title">
+                            <i :class="'iconfont icon-learning-' +item.icon"></i>
+                            <span>{{item.title}}</span>
+                        </template>
+                        <el-menu-item
+                            v-for="(child, childIndex) of item.children"
+                            :key="index + '_' + childIndex"
+                            :index="child.path">
+                            {{child.title}}
+                        </el-menu-item>
+                    </el-submenu>
+
+                    <el-menu-item v-else :key="index" :index="item.path">
+                        <i :class="'iconfont icon-learning-' + item.icon"></i>
+                        <span slot="title">{{item.title}}</span>
+                    </el-menu-item>
+                </template>
             </el-menu>
         </el-aside>
-        <el-container>
+        <el-container class="main-container">
             <el-header class="header">
                 <el-button type="default" size="mini" icon="iconfont icon-learning-quit" circle @click="logout"></el-button>
             </el-header>
-            <el-main>
+            <el-main class="main-content">
                 <router-view></router-view>
             </el-main>
         </el-container>
@@ -90,7 +85,38 @@ export default {
                     iconColor: '#666666',
                     backgroundColor: '#EFF2F8'
                 }
-            }
+            },
+            currentMenus: [{
+                title: '工作例子',
+                icon: 'table',
+                path: '/jobExample',
+                children: [{
+                    title: '自动表格',
+                    path: '/jobExample/autoExample'
+                }, {
+                    title: '表格',
+                    path: '/jobExample/table'
+                }, {
+                    title: '高级检索',
+                    path: '/advancedSearch'
+                }]
+            }, {
+                title: '富文本',
+                icon: 'rich-text',
+                path: '/richText'
+            }, {
+                title: '百度地图',
+                icon: 'map',
+                path: '/baiduMap'
+            }, {
+                title: 'aceEditor',
+                icon: 'editor',
+                path: '/aceEditor'
+            }, {
+                title: '六爻',
+                icon: 'wuxing',
+                path: '/liuYao'
+            }]
         };
     },
     computed: {
@@ -308,27 +334,35 @@ export default {
                 background: $primary !important;
             }
         }
-        .header{
-            width: 100%;
-            height: 54px !important;
-            line-height: 54px;
-            background: white;
-            box-shadow: 0 1px 4px 0 rgba(0,21,41,0.08);
-            z-index: 3;
-            padding-right: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            .header-dropdowm{
-                height: 40px;
+        .main-container{
+            background: $body-bg;
+            .header{
+                width: 100%;
+                height: 54px !important;
+                line-height: 54px;
+                background: white;
+                box-shadow: 0 1px 4px 0 rgba(0,21,41,0.08);
+                z-index: 3;
+                padding-right: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                .header-dropdowm{
+                    height: 40px;
+                }
+                .simple-dropdowm, .light-dropdowm{
+                    color: white;
+                }
             }
-            .simple-dropdowm, .light-dropdowm{
-                color: white;
+            .main-content{
+                background: white;
+                margin: 16px;
             }
         }
         .simple-header,.light-header{
             background: $primary;
             box-shadow: 0 1px 4px 0 rgba(0,21,41,0.12);
         }
+
     }
 </style>

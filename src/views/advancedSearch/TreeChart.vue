@@ -290,7 +290,6 @@ export default {
 <style lang="scss">
 .tree-chart {
     height: calc(100% - 96px);
-    padding: 12px 30px;
     overflow: auto;
     .chart-header {
         display: flex;

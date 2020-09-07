@@ -4,6 +4,7 @@
             ref="singleTable"
             :data="showTableData"
             style="width: 100%"
+            size="small"
         >
             <el-table-column
                 type="index"
