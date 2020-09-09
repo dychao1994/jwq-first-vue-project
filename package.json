@@ -14,6 +14,8 @@
     "core-js": "^3.6.4",
     "dayjs": "^1.8.34",
     "element-ui": "^2.4.5",
+    "lunar-javascript": "^1.0.19",
+    "solarlunar": "^2.0.7",
     "tinymce": "^5.3.1",
     "uuid-js": "^0.7.5",
     "vue": "^2.6.11",

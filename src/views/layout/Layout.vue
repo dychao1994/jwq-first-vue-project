@@ -116,6 +116,10 @@ export default {
                 title: '六爻',
                 icon: 'wuxing',
                 path: '/liuYao'
+            }, {
+                title: '万年历',
+                icon: 'calendar',
+                path: '/chinaCalendar'
             }]
         };
     },

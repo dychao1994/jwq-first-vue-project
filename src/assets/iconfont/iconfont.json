@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "10485985",
+      "name": "万年历",
+      "font_class": "calendar",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
       "icon_id": "7087551",
       "name": "五行",
       "font_class": "wuxing",
@@ -57,7 +64,7 @@
     {
       "icon_id": "7037111",
       "name": "学习中心",
-      "font_class": "style",
+      "font_class": "study",
       "unicode": "e710",
       "unicode_decimal": 59152
     }

@@ -13,6 +13,9 @@ const AdvancedSearch = () => import('@/views/advancedSearch/AdvancedSearch.vue')
 const AutoExample = () => import('@/views/jobExample/autoExample/AutoExample.vue');
 const Table = () => import('@/views/jobExample/table/Table.vue');
 
+
+const ChinaCalendar = () => import('@/views/chinaCalendar/ChinaCalendar.vue');
+
 // 通过Vue的use方法注入Router
 Vue.use(Router);
 
@@ -62,6 +65,10 @@ const router = new Router({
                 path: '/advancedSearch',
                 name: 'advancedSearch',
                 component: AdvancedSearch
+            }, {
+                path: '/chinaCalendar',
+                name: 'chinaCalendar',
+                component: ChinaCalendar
             }]
         }
     ]
