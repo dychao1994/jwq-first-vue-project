@@ -99,6 +99,9 @@ export default {
                 }, {
                     title: '高级检索',
                     path: '/advancedSearch'
+                }, {
+                    title: '上传',
+                    path: '/jobExample/upload'
                 }]
             }, {
                 title: '富文本',

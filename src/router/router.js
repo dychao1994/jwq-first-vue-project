@@ -12,6 +12,7 @@ const AdvancedSearch = () => import('@/views/advancedSearch/AdvancedSearch.vue')
 
 const AutoExample = () => import('@/views/jobExample/autoExample/AutoExample.vue');
 const Table = () => import('@/views/jobExample/table/Table.vue');
+const Upload = () => import('@/views/jobExample/upload/Upload.vue');
 
 
 const ChinaCalendar = () => import('@/views/chinaCalendar/ChinaCalendar.vue');
@@ -45,6 +46,10 @@ const router = new Router({
                 path: '/jobExample/table',
                 name: 'table',
                 component: Table
+            }, {
+                path: '/jobExample/upload',
+                name: 'upload',
+                component: Upload
             }, {
                 path: '/richText',
                 name: 'richText',
