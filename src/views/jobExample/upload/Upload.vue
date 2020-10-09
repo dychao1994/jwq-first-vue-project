@@ -189,9 +189,9 @@ export default {
                     },
                     error() {
                         console.log('Upload error');
-                    },
+                    }
                 });
-            }
+            });
         }
     }
 };
