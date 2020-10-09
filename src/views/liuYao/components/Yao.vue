@@ -20,7 +20,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .yao{
         padding: 5px;
         height: 20px;
