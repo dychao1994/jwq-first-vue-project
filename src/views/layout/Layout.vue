@@ -51,7 +51,9 @@
                 <el-button type="default" size="mini" icon="iconfont icon-learning-quit" circle @click="logout"></el-button>
             </el-header>
             <el-main class="main-content">
-                <router-view></router-view>
+                <div class="main-panel">
+                    <router-view></router-view>
+                </div>
             </el-main>
         </el-container>
     </el-container>
@@ -102,6 +104,9 @@ export default {
                 }, {
                     title: '上传',
                     path: '/jobExample/upload'
+                }, {
+                    title: '穿梭框',
+                    path: '/jobExample/shuttle'
                 }]
             }, {
                 title: '富文本',
@@ -342,7 +347,6 @@ export default {
             }
         }
         .main-container{
-            background: $body-bg;
             .header{
                 width: 100%;
                 height: 54px !important;
@@ -362,8 +366,13 @@ export default {
                 }
             }
             .main-content{
-                background: white;
-                margin: 16px;
+                height: 0;
+                background: $body-bg;
+                .main-panel{
+                    min-height: calc(100% - 32px);
+                    padding: 16px;
+                    background: white;
+                }
             }
         }
         .simple-header,.light-header{

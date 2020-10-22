@@ -25,8 +25,8 @@
                     <el-button size="small" @click.prevent="showFileChooser">上传头像</el-button>
                     <el-button size="small" @click.prevent="zoom(0.2)">放大</el-button>
                     <el-button size="small" @click.prevent="zoom(-0.2)">缩小</el-button>
-                    <el-button size="small" type="primary" @click="cropperStart">提交</el-button>
                 </div>
+                <el-button size="small" type="primary" style="margin-top: 8px;" @click="cropperStart">提交</el-button>
             </section>
             <!--<section class="preview-area">
                 <p>Preview</p>

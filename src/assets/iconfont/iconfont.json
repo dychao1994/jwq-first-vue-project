@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "17649896",
+      "name": "drag",
+      "font_class": "draggable",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "17649897",
+      "name": "screen",
+      "font_class": "filter",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
       "icon_id": "10485985",
       "name": "万年历",
       "font_class": "calendar",
