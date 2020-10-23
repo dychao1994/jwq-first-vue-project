@@ -26,9 +26,24 @@
                 </div>
             </div>
             <div v-for="(outItem, outIndex) in showDayList" :key="outIndex" class="tr-calendar">
-                <div v-for="(item, index) in outItem" :key="index" class="single-calendar">
+                <div
+                    v-for="(item, index) in outItem"
+                    :key="index"
+                    class="single-calendar"
+                    :class="{'is-current-month': month != item.common.month(), today: isSameDate(item.common), active: selectedDate.common.isSame(item.common), holiday: isHoliday(item.common)}"
+                    @click="handleSelectDate(item)"
+                >
                     <div class="number">{{item.common.get('date')}}</div>
-                    <div class="nong-li">{{item.lunar.dayCn}}</div>
+                    <!-- 节气 -->
+                    <div v-if="item.chinaLunar.getJie() || item.chinaLunar.getQi()" class="second-line red">
+                        {{item.chinaLunar.getJie() || item.chinaLunar.getQi()}}
+                    </div>
+                    <!-- 节日 -->
+                    <div v-else-if="item.solarLunar.getFestivals().length || item.chinaLunar.getFestivals().length" class="second-line red">
+                        {{item.solarLunar.getFestivals().concat(item.chinaLunar.getFestivals()).join('、')}}
+                    </div>
+                    <!-- 农历 -->
+                    <div v-else class="second-line">{{item.chinaLunar.getDayInChinese()}}</div>
                 </div>
             </div>
         </div>
@@ -37,15 +52,19 @@
 
 <script>
 import dayjs from 'dayjs';
-import solarLunar from 'solarlunar';
-import {Lunar} from 'lunar-javascript';
+import {Lunar, Solar, HolidayUtil} from 'lunar-javascript';
 export default {
     name: 'ChinaCalendar',
     data() {
         return {
             isEdit: false,
             yearAndMonth: `${dayjs().year()}-${dayjs().month() + 1}`,
-            dayList: []
+            dayList: [],
+            selectedDate: {
+                common: dayjs(),
+                solarLunar: Solar.fromDate(new Date()),
+                chinaLunar: Lunar.fromDate(new Date())
+            }
         };
     },
     computed: {
@@ -89,15 +108,28 @@ export default {
             do {
                 dayList.push({
                     common: tempDay.clone(),
-                    lunar: solarLunar.solar2lunar(tempDay.year(), tempDay.month() + 1, tempDay.date()),
+                    solarLunar: Solar.fromDate(new Date(tempDay.format('YYYY-MM-DD'))),
                     chinaLunar: Lunar.fromDate(new Date(tempDay.format('YYYY-MM-DD')))
                 });
+                console.log(tempDay.clone().year(), tempDay.clone().month() + 1, tempDay.clone().date())
+                console.log(HolidayUtil.getHoliday(tempDay.clone().year(), tempDay.clone().month() + 1, tempDay.clone().date()));
                 tempDay = tempDay.add(1, 'day');
             } while (tempDay.isBefore(endDay));
             this.dayList = dayList;
         },
         handleMonth(num) {
             this.yearAndMonth = dayjs(this.yearAndMonth).add(num, 'month').format('YYYY-MM');
+        },
+        isSameDate(date) {
+            return dayjs().isSame(date, 'date');
+        },
+        handleSelectDate(item) {
+            this.selectedDate = item;
+        },
+        isHoliday(item) {
+            const holiday = HolidayUtil.getHoliday(item.year(), item.month() + 1, item.date());
+            return holiday && !holiday.isWork();
+
         }
     }
 };
@@ -128,13 +160,17 @@ export default {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: space-between;
-                border-top: 1px solid #333333;
+                align-items: center;
+                border-top: 1px solid $text-secondary;
                 &:last-child{
-                    border-bottom: 1px solid #333333;
+                    border-bottom: 1px solid $text-secondary;
                 }
                 .single-calendar{
-                    width: 14%;
+                    border: 3px solid white;
+                    height: 66px;
+                    width: 14.285%;
                     text-align: center;
+                    cursor: pointer;
                     //border-right: 1px solid #333333;
                     padding: 8px 0 ;
                     &:first-child{
@@ -147,14 +183,35 @@ export default {
 
                         color: $text-primary;
                     }
-                    .nong-li{
-                        line-height: 20px;
-                        font-size: 16px;
+                    .second-line{
+                        line-height: 24px;
+                        font-size: 14px;
                         color: $text-regular;
+                    }
+                    .red{
+                        color: $red;
+                        font-weight: bold;
                     }
 
                 }
+                .is-current-month {
+                    opacity: .5;
+                }
+                .today{
+                    background: lighten($primary, 0%);
+                    border-color: $primary;
+                    >div {
+                        color: white !important;
+                    }
+                }
+                .active {
+                    border-color: $primary;
+                }
+                .holiday {
+                    background: lighten($red, 40%);
+                }
                 .calendar-header{
+                    height: 32px;
                     text-align: center;
                     padding: 8px 0;
                     font-size: 16px;
