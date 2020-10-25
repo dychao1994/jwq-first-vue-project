@@ -30,10 +30,13 @@
                     v-for="(item, index) in outItem"
                     :key="index"
                     class="single-calendar"
-                    :class="{'is-current-month': month != item.common.month(), today: isSameDate(item.common), active: selectedDate.common.isSame(item.common), holiday: isHoliday(item.common)}"
+                    :class="{'is-current-month': month != item.common.month(), today: isSameDate(item.common), active: selectedDate.common.isSame(item.common)
+                             , holiday: isHoliday(item.common, true), work: isHoliday(item.common, false)}"
                     @click="handleSelectDate(item)"
                 >
-                    <div class="number">{{item.common.get('date')}}</div>
+                    <i v-if="isHoliday(item.common, true)" class="iconfont icon-learning-rest holiday-icon" ></i>
+                    <i v-if="isHoliday(item.common, false)" class="iconfont icon-learning-work work-icon" ></i>
+                    <div class="number" :class="{red: isHoliday(item.common, true)}">{{item.common.get('date')}}</div>
                     <!-- 节气 -->
                     <div v-if="item.chinaLunar.getJie() || item.chinaLunar.getQi()" class="second-line red">
                         {{item.chinaLunar.getJie() || item.chinaLunar.getQi()}}
@@ -111,7 +114,7 @@ export default {
                     solarLunar: Solar.fromDate(new Date(tempDay.format('YYYY-MM-DD'))),
                     chinaLunar: Lunar.fromDate(new Date(tempDay.format('YYYY-MM-DD')))
                 });
-                console.log(tempDay.clone().year(), tempDay.clone().month() + 1, tempDay.clone().date())
+                console.log(tempDay.clone().year(), tempDay.clone().month() + 1, tempDay.clone().date());
                 console.log(HolidayUtil.getHoliday(tempDay.clone().year(), tempDay.clone().month() + 1, tempDay.clone().date()));
                 tempDay = tempDay.add(1, 'day');
             } while (tempDay.isBefore(endDay));
@@ -126,10 +129,9 @@ export default {
         handleSelectDate(item) {
             this.selectedDate = item;
         },
-        isHoliday(item) {
+        isHoliday(item, isRest) {
             const holiday = HolidayUtil.getHoliday(item.year(), item.month() + 1, item.date());
-            return holiday && !holiday.isWork();
-
+            return holiday && (isRest ? !holiday.isWork() : holiday.isWork());
         }
     }
 };
@@ -159,16 +161,17 @@ export default {
             .tr-calendar{
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: space-between;
+                justify-content: space-evenly;
                 align-items: center;
                 border-top: 1px solid $text-secondary;
                 &:last-child{
                     border-bottom: 1px solid $text-secondary;
                 }
                 .single-calendar{
+                    position: relative;
                     border: 3px solid white;
                     height: 66px;
-                    width: 14.285%;
+                    width: 14.2%;
                     text-align: center;
                     cursor: pointer;
                     //border-right: 1px solid #333333;
@@ -192,7 +195,19 @@ export default {
                         color: $red;
                         font-weight: bold;
                     }
-
+                    i {
+                        position: absolute;
+                        font-size: 18px;
+                        color: $red;
+                        left: 4px;
+                        top: 4px;
+                    }
+                    .holiday-icon{
+                        color: $red;
+                    }
+                    .work-icon{
+                        color: $text-primary;
+                    }
                 }
                 .is-current-month {
                     opacity: .5;
@@ -205,10 +220,17 @@ export default {
                     }
                 }
                 .active {
-                    border-color: $primary;
+                    border-color: $primary !important;
                 }
                 .holiday {
-                    background: lighten($red, 40%);
+                    $color: lighten($red, 40%);
+                    background: $color;
+                    border-color: $color;
+                }
+                .work{
+                    $color: lighten($text-placeholder, 10%);
+                    background: $color;
+                    border-color: $color;
                 }
                 .calendar-header{
                     height: 32px;

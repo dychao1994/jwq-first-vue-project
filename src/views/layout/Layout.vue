@@ -366,12 +366,15 @@ export default {
                 }
             }
             .main-content{
+
+                min-width: 850px;
                 height: 0;
                 background: $body-bg;
                 .main-panel{
-                    min-height: calc(100% - 32px);
+                    min-height: 100%;
                     padding: 16px;
                     background: white;
+                    overflow: auto;
                 }
             }
         }

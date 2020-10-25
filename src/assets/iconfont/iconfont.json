@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2076386",
+      "name": "班小",
+      "font_class": "work",
+      "unicode": "e8c2",
+      "unicode_decimal": 59586
+    },
+    {
+      "icon_id": "2076387",
+      "name": "休小",
+      "font_class": "rest",
+      "unicode": "e8c3",
+      "unicode_decimal": 59587
+    },
+    {
       "icon_id": "17649896",
       "name": "drag",
       "font_class": "draggable",
