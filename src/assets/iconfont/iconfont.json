@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1115211",
+      "name": "今天",
+      "font_class": "today",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
       "icon_id": "2076386",
       "name": "班小",
       "font_class": "work",
