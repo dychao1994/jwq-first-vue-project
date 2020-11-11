@@ -6,6 +6,18 @@
         <div class="day-calendar-day">
             <div class="show-day">{{currentDay.common.format('DD')}}</div>
         </div>
+        <div>
+            农历：{{chinaLunar.getYearInChinese()}}年{{chinaLunar.getMonthInChinese()}}月{{chinaLunar.getDayInChinese()}}
+        </div>
+        <div>
+            甲子历：{{chinaLunar.getYearGanExact()}}{{chinaLunar.getYearZhiExact()}}
+            {{chinaLunar.getMonthGanExact()}}{{chinaLunar.getMonthZhiExact()}}
+            {{chinaLunar.getDayGan()}}{{chinaLunar.getDayZhi()}}
+        </div>
+        <div>
+            宜{{chinaLunar.getDayYi()}}
+            忌{{chinaLunar.getDayJi()}}
+        </div>
     </div>
 </template>
 
@@ -16,6 +28,11 @@ export default {
         currentDay: {
             type: Object,
             default: () => { return {}; }
+        }
+    },
+    computed: {
+        chinaLunar() {
+            return this.currentDay.chinaLunar;
         }
     }
 };

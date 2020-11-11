@@ -9,6 +9,7 @@
                 </template>
             </el-table-column>
             <el-table-column label="预检时段">
+
                 <template slot-scope="scope">
                     <el-date-picker
                         v-if="frequency != 5"
@@ -37,7 +38,7 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button type="text" @click="handleRemove(scope.row)" size="small">移除</el-button>
+                    <el-button type="text" size="small" @click="handleRemove(scope.row)">移除</el-button>
                 </template>
             </el-table-column>
         </el-table>
