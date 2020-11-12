@@ -6,17 +6,47 @@
         <div class="day-calendar-day">
             <div class="show-day">{{currentDay.common.format('DD')}}</div>
         </div>
-        <div>
-            农历：{{chinaLunar.getYearInChinese()}}年{{chinaLunar.getMonthInChinese()}}月{{chinaLunar.getDayInChinese()}}
+        <div class="key-value">
+            <div class="key">农</div>
+            <div class="value">
+                {{chinaLunar.getYearInChinese()}}年{{chinaLunar.getMonthInChinese()}}月{{chinaLunar.getDayInChinese()}}
+            </div>
         </div>
-        <div>
-            甲子历：{{chinaLunar.getYearGanExact()}}{{chinaLunar.getYearZhiExact()}}
-            {{chinaLunar.getMonthGanExact()}}{{chinaLunar.getMonthZhiExact()}}
-            {{chinaLunar.getDayGan()}}{{chinaLunar.getDayZhi()}}
+        <div class="key-value">
+            <div class="key">甲</div>
+            <div class="value ganzhi">
+                <div>
+                    <div>{{chinaLunar.getYearGanExact()}}</div>
+                    <div>{{chinaLunar.getYearZhiExact()}}</div>
+                </div>
+                <div>
+                    <div>{{chinaLunar.getMonthGanExact()}}</div>
+                    <div>{{chinaLunar.getMonthZhiExact()}}</div>
+                </div>
+                <div>
+                    <div>{{chinaLunar.getDayGan()}}</div>
+                    <div>{{chinaLunar.getDayZhi()}}</div>
+                </div>
+            </div>
         </div>
-        <div>
-            宜{{chinaLunar.getDayYi()}}
-            忌{{chinaLunar.getDayJi()}}
+        <div class="key-value">
+            <div class="key">节</div>
+            <div class="value">
+                {{chinaLunar.getFestivals().concat(chinaLunar.getOtherFestivals()).concat(solarLunar.getFestivals()).concat(solarLunar.getOtherFestivals()).toString()}}
+            </div>
+        </div>
+        <div class="key-value">
+            <div class="key yi">宜</div>
+            <div class="value">
+                {{chinaLunar.getDayYi().toString()}}
+            </div>
+        </div>
+
+        <div class="key-value">
+            <div class="key ji">忌</div>
+            <div class="value">
+                {{chinaLunar.getDayJi().toString()}}
+            </div>
         </div>
     </div>
 </template>
@@ -33,6 +63,9 @@ export default {
     computed: {
         chinaLunar() {
             return this.currentDay.chinaLunar;
+        },
+        solarLunar() {
+            return this.currentDay.solarLunar;
         }
     }
 };
@@ -42,9 +75,11 @@ export default {
     .day-calendar{
         height: 100%;
         background: $primary;
+        padding: 8px;
+        overflow: auto;
         .day-calendar-header{
             text-align: center;
-            line-height: 40px;
+            line-height: 32px;
             color: white;
             font-weight: bold;
         }
@@ -65,6 +100,53 @@ export default {
                 font-weight: bold;
                 color: white;
                 background: lighten($yellow, 5%);
+            }
+        }
+        .key-value{
+            padding: 4px 0;
+            line-height: 24px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 16px;
+            color: white;
+            border-bottom: 1px dashed white;
+            .key{
+                /*width: 70px;*/
+                font-weight: bold;
+                width: 24px;
+                line-height: 22px;
+                text-align: center;
+                border-radius: 4px;
+                border: 1px solid white;
+                background: white;
+                color: $primary;
+                margin-right: 16px;
+            }
+            .value {
+                width: calc(100% - 24px);
+                font-weight: bold;
+            }
+            .ganzhi{
+                font-weight: bold;
+                display: flex;
+                >div{
+                    margin-right: 20px;
+                    >div{
+                        line-height: 24px;
+                        font-weight: bold;
+                    }
+                }
+            }
+            .yi{
+                $yi: #F5222D;
+                background-color: $yi !important;
+                border-color: $yi !important;
+                color: white !important;
+            }
+            .ji{
+                background-color: $green !important;
+                border-color: $green !important;
+                color: white !important;
             }
         }
     }

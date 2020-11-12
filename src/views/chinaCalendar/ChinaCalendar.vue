@@ -1,6 +1,6 @@
 <template>
     <div class="china-calendar">
-        <div class="china-calendar-month">
+        <div ref="month" class="china-calendar-month">
             <div class="calendar-title">
                 <i class="el-icon-back" @click="handleMonth(-1)"></i>
                 <div v-if="!isEdit" class="calendar-title-value" @click="isEdit = true">
@@ -97,6 +97,9 @@ export default {
                 }
             }
             return result;
+        },
+        height() {
+            return this.$refs.month ? this.$refs.month.offsetHeight : 412;
         }
     },
     watch: {
