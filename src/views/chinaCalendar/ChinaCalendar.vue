@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="china-calendar-day">
-            <day-calendar :current-day="selectedDate"></day-calendar>
+            <day-calendar :current-day="selectedDate" :row-num="dayList.length / 7"></day-calendar>
         </div>
     </div>
 </template>
@@ -126,8 +126,6 @@ export default {
                     solarLunar: Solar.fromDate(new Date(tempDay.format('YYYY-MM-DD'))),
                     chinaLunar: Lunar.fromDate(new Date(tempDay.format('YYYY-MM-DD')))
                 });
-                console.log(tempDay.clone().year(), tempDay.clone().month() + 1, tempDay.clone().date());
-                console.log(HolidayUtil.getHoliday(tempDay.clone().year(), tempDay.clone().month() + 1, tempDay.clone().date()));
                 tempDay = tempDay.add(1, 'day');
             } while (tempDay.isBefore(endDay));
             this.dayList = dayList;
