@@ -1,17 +1,16 @@
 <template>
-    <el-scrollbar style="height:100%">
-        <div class="day-calendar" :style="'height:' + height + 'px'">
-
+    <div class="day-calendar" :style="'height:' + height + 'px'">
+        <el-scrollbar style="height: 100%;">
             <div class="day-calendar-header">
-                {{currentDay.common.format('YYYY年MM月DD日 dddd')}}
+                {{currentDay.common.format('YYYY年MM月DD日')}} 星期{{currentDay.chinaLunar.getWeekInChinese()}}
             </div>
             <div class="day-calendar-day">
-                <div class="show-day">{{currentDay.common.format('DD')}}</div>
+                <div class="show-day">{{currentDay.common.format('D')}}</div>
             </div>
             <div class="key-value">
                 <div class="key">农</div>
                 <div class="value">
-                    {{chinaLunar.getYearInChinese()}}年{{chinaLunar.getMonthInChinese()}}月{{chinaLunar.getDayInChinese()}}
+                    [{{chinaLunar.getYearShengXiaoExact()}}]&#12288;{{chinaLunar.getYearInChinese()}}年{{chinaLunar.getMonthInChinese()}}月{{chinaLunar.getDayInChinese()}}
                 </div>
             </div>
             <div class="key-value">
@@ -31,27 +30,27 @@
                     </div>
                 </div>
             </div>
-            <div class="key-value">
-                <div class="key">节</div>
+            <div v-if="festival" class="key-value">
+                <div class="key festival">节</div>
                 <div class="value">
-                    {{chinaLunar.getFestivals().concat(chinaLunar.getOtherFestivals()).concat(solarLunar.getFestivals()).concat(solarLunar.getOtherFestivals()).toString()}}
+                    {{festival}}
                 </div>
             </div>
             <div class="key-value">
                 <div class="key yi">宜</div>
                 <div class="value">
-                    {{chinaLunar.getDayYi().toString()}}
+                    {{chinaLunar.getDayYi().join('、')}}
                 </div>
             </div>
 
             <div class="key-value">
                 <div class="key ji">忌</div>
                 <div class="value">
-                    {{chinaLunar.getDayJi().toString()}}
+                    {{chinaLunar.getDayJi().join('、')}}
                 </div>
             </div>
-        </div>
-    </el-scrollbar>
+        </el-scrollbar>
+    </div>
 </template>
 
 <script>
@@ -76,6 +75,9 @@ export default {
         },
         height() {
             return 412 + (this.rowNum - 5) * 67;
+        },
+        festival() {
+            return this.chinaLunar.getFestivals().concat(this.solarLunar.getFestivals()).concat(this.chinaLunar.getOtherFestivals()).concat(this.solarLunar.getOtherFestivals()).join('、');
         }
     }
 };
@@ -86,8 +88,6 @@ export default {
         height: 100%;
         width: 100%;
         background: $primary;
-        padding: 8px;
-        overflow: auto;
         .day-calendar-header{
             text-align: center;
             line-height: 32px;
@@ -159,12 +159,17 @@ export default {
                 border-color: $green !important;
                 color: white !important;
             }
+            .festival{
+                background-color: $blue !important;
+                border-color: $blue !important;
+                color: white !important;
+            }
         }
-    }
-
-    .el-scrollbar__wrap {
-        overflow-y: scroll;
-        overflow-x: hidden !important;
-        height: 120%;
+        .el-scrollbar__wrap{
+            overflow-x: hidden;
+        }
+        .el-scrollbar__view{
+            padding: 8px;
+        }
     }
 </style>

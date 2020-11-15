@@ -31,8 +31,8 @@
                         v-for="(item, index) in outItem"
                         :key="index"
                         class="single-calendar"
-                        :class="{'is-current-month': month != item.common.month(), today: isSameDate(item.common), active: selectedDate.common.isSame(item.common)
-                                 , holiday: (isHoliday(item.common, true) || ([0, 6].includes(item.common.get('day')))), work: isHoliday(item.common, false)}"
+                        :class="{'is-current-month': month != item.common.month(), holiday: (isHoliday(item.common, true) || ([0, 6].includes(item.common.get('day'))))
+                                 , today: isSameDate(item.common), active: selectedDate.common.isSame(item.common), work: isHoliday(item.common, false)}"
                         @click="handleSelectDate(item)"
                     >
                         <i v-if="isHoliday(item.common, true)" class="iconfont icon-learning-rest holiday-icon" ></i>
@@ -232,21 +232,6 @@ export default {
                     .is-current-month {
                         opacity: .5;
                     }
-                    .today{
-                        background: lighten($primary, 0%);
-                        border-color: $primary;
-                        >div {
-                            color: white !important;
-                        }
-                        .work-icon{
-                            position: absolute;
-                            font-size: 18px;
-                            font-weight: bold;
-                            left: 8px;
-                            top: 8px;
-                            color: white !important;
-                        }
-                    }
                     .active {
                         border-color: $primary !important;
                     }
@@ -266,6 +251,22 @@ export default {
                         padding: 8px 0;
                         font-size: 16px;
                         font-weight: bold;
+                    }
+
+                    .today{
+                        background: lighten($primary, 0%);
+                        border-color: $primary;
+                        >div {
+                            color: white !important;
+                        }
+                        .work-icon{
+                            position: absolute;
+                            font-size: 18px;
+                            font-weight: bold;
+                            left: 8px;
+                            top: 8px;
+                            color: white !important;
+                        }
                     }
                 }
             }
