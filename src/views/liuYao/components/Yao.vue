@@ -22,15 +22,18 @@ export default {
 
 <style lang="scss">
     .yao{
-        padding: 5px;
-        height: 20px;
+        display: flex;
+        align-items: center;
+        height: 32px;
         .yang{
-            height: 100%;
+            height: calc(100% - 10px);
+            width: 100%;
             background: #ff4d4f;
         }
         .yin{
             display: flex;
-            height: 100%;
+            height: calc(100% - 10px);
+            width: 100%;
             justify-content: space-between;
             >div{
                 width: 40%;

@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import dayjs from 'dayjs';
 import App from './App.vue';
 import './plugins/element.js';
 import VueRouter from 'vue-router';
@@ -18,6 +19,7 @@ Vue.use(BaiduMap, {
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 window.$vue = Vue.prototype;
+Vue.prototype.$dayjs = dayjs;
 new Vue({
     render: h => h(App),
     router,

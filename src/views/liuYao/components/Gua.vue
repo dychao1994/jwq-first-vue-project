@@ -55,10 +55,10 @@ export default {
             margin-bottom: 4px;
         }
         .single-row{
-            padding: 5px;
-            height: 20px;
-            line-height: 20px;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 32px;
         }
         .liu-shen{
             width: 50px;
