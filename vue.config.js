@@ -9,7 +9,7 @@ const lastVersion = new Date().getTime();
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    publicPath: '/', // 表示在引入静态资源时，从根路径开始引入
+    publicPath: '/learnCenter', // 表示在引入静态资源时，从根路径开始引入
     //  详细配置网站https://cli.vuejs.org/zh/config/#vue-config-js
     // 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码。这个值会在 @vue/cli-plugin-eslint 被安装之后生效。
     //

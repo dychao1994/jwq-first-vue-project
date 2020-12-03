@@ -22,9 +22,11 @@ const ChinaCalendar = () => import('@/views/chinaCalendar/ChinaCalendar.vue');
 Vue.use(Router);
 
 const router = new Router({
-    linkActiveClass: 'active', // 指定路由选中时的样式类名
-    hashbang: true, // 将路径格式化为#!开头
-    history: true, // 启用HTML5 history模式，可以使用pushState和replaceState来管理记录
+    // linkActiveClass: 'active', // 指定路由选中时的样式类名
+    mode: 'history',
+    base: '/learnCenter/',
+    //  hashbang: true, // 将路径格式化为#!开头
+    // history: true, // 启用HTML5 history模式，可以使用pushState和replaceState来管理记录
     /**
 	 * @desc 路由配置配置具体的路径
 	 */
