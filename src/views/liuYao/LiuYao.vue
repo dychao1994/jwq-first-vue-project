@@ -1,7 +1,7 @@
 <template>
     <div class="liu-yao">
         <liu-yao-search></liu-yao-search>
-        <gua></gua>
+        <!--<gua></gua>-->
     </div>
 </template>
 
